@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt)
     ext(libs.hilt.compiler)
-    //implementation(project(":core"))
+    implementation(project(":core"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

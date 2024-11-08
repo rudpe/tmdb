@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "tmdb"
 include(":app")
+include(":core")
