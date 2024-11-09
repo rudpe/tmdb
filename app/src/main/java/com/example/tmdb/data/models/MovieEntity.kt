@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class MovieEntity(
     @PrimaryKey val id: Long,
     val title: String,
-    val label: String
+    val page: Int
 )

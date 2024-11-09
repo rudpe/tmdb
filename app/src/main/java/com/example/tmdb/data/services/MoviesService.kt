@@ -7,6 +7,8 @@ import javax.inject.Inject
 class MoviesService @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) {
-    suspend fun getMovies() =
-        moviesRepository.getMovies()
+    suspend fun getMovies(page: Int) =
+        moviesRepository.getMovies(page)
+
+    val moviesPager = moviesRepository.moviesPager.flow
 }

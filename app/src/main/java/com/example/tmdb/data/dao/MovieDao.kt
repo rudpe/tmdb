@@ -14,8 +14,14 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(users: List<MovieEntity>)
 
-    @Query("SELECT * FROM movies WHERE label LIKE :query")
-    fun pagingSource(query: String): PagingSource<Int, MovieEntity>
+    @Query("SELECT * FROM movies ORDER BY page")
+    fun pagingSource(): PagingSource<Int, MovieEntity>
+
+    @Query("DELETE FROM movies WHERE page = :page")
+    suspend fun deleteByQuery(page: Int)
+
+    @Query("SELECT MAX(page) FROM movies")
+    suspend fun getMaxPage(): Int
 
     @Query("DELETE FROM movies")
     suspend fun clearAll()
