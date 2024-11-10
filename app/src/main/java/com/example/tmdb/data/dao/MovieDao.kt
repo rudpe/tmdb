@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.tmdb.data.models.Movie
 import com.example.tmdb.data.models.MovieEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
@@ -16,6 +17,9 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies ORDER BY page")
     fun pagingSource(): PagingSource<Int, MovieEntity>
+
+    @Query("SELECT * FROM movies WHERE id=:id")
+    fun geMovieById(id: Long): Flow<MovieEntity>
 
     @Query("DELETE FROM movies WHERE page = :page")
     suspend fun deleteByQuery(page: Int)

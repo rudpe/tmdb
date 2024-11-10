@@ -6,6 +6,7 @@ import com.example.tmdb.BuildConfig
 import com.example.tmdb.data.AppDatabase
 import com.example.tmdb.data.api.MoviesApi
 import com.example.tmdb.data.dao.MovieDao
+import com.example.tmdb.data.dao.MovieFavoriteDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -73,6 +74,10 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideDao(appDatabase: AppDatabase) : MovieDao = appDatabase.movieDao()
+    fun provideMovieDao(appDatabase: AppDatabase) : MovieDao = appDatabase.movieDao()
+
+    @Provides
+    @Singleton
+    fun provideMovieFavoriteDao(appDatabase: AppDatabase) : MovieFavoriteDao = appDatabase.movieFavoriteDao()
 
 }

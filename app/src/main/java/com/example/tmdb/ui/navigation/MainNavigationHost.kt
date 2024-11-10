@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.tmdb.ui.screens.DetailScreen
 import com.example.tmdb.ui.screens.MoviesScreen
 import kotlinx.serialization.Serializable
 
@@ -12,6 +13,9 @@ sealed interface MainRoutes {
 
     @Serializable
     object Movies : MainRoutes
+
+    @Serializable
+    data class Detail(val movieId: Long) : MainRoutes
 }
 
 @Composable
@@ -21,7 +25,10 @@ fun MainNavHost(navController: NavHostController = rememberNavController()) {
         startDestination = MainRoutes.Movies
     ) {
         composable<MainRoutes.Movies> {
-            MoviesScreen()
+            MoviesScreen({ navController.navigate(MainRoutes.Detail(it)) })
+        }
+        composable<MainRoutes.Detail> {
+            DetailScreen()
         }
     }
 }
