@@ -28,7 +28,7 @@ fun MainNavHost(navController: NavHostController = rememberNavController()) {
             MoviesScreen({ navController.navigate(MainRoutes.Detail(it)) })
         }
         composable<MainRoutes.Detail> {
-            DetailScreen()
+            DetailScreen({ navController.popBackStack() })
         }
     }
 }

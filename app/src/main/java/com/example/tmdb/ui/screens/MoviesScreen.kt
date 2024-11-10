@@ -30,23 +30,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
-import com.example.tmdb.BuildConfig
-import com.example.tmdb.Greeting
-import com.example.tmdb.data.models.Movie
 import com.example.tmdb.data.models.MovieEntity
 import com.example.tmdb.ui.util.stateLoader
 import com.example.tmdb.ui.viewmodels.MoviesViewModel
 import com.example.core.utils.ImageUtil
+import com.example.tmdb.ui.components.MovieTopBar
 
 @Composable
 fun MoviesScreen(onMovieClick: (Long) -> Unit, viewModel: MoviesViewModel = hiltViewModel()) {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = { MovieTopBar("Movies", null) }
+    ) { innerPadding ->
         val favorites by viewModel.favorites.collectAsStateWithLifecycle()
         val pager = viewModel.moviesPager.collectAsLazyPagingItems()
         LazyColumn(Modifier.padding(innerPadding)) {
