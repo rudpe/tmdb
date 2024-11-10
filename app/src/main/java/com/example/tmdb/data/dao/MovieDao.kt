@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.tmdb.data.models.Movie
 import com.example.tmdb.data.models.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -22,7 +21,7 @@ interface MovieDao {
     fun geMovieById(id: Long): Flow<MovieEntity>
 
     @Query("DELETE FROM movies WHERE page = :page")
-    suspend fun deleteByQuery(page: Int)
+    suspend fun deleteByPage(page: Int)
 
     @Query("SELECT MAX(page) FROM movies")
     suspend fun getMaxPage(): Int

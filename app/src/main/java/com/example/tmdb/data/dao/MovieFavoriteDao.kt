@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieFavoriteDao {
 
     @Query("SELECT * FROM movies_favorite WHERE isFavorite=1")
-    fun getFavoritesFlow(): Flow<List<MovieFavoriteEntity>>
+    fun getFavorites(): Flow<List<MovieFavoriteEntity>>
 
     @Query("SELECT isFavorite FROM movies_favorite WHERE id=:id")
     fun getFavorite(id: Long): Flow<Boolean?>

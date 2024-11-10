@@ -1,11 +1,9 @@
 package com.example.tmdb.ui.viewmodels
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import androidx.paging.cachedIn
 import com.example.tmdb.data.services.MoviesService
 import com.example.tmdb.ui.navigation.MainRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel

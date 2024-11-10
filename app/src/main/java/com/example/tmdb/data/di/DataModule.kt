@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.tmdb.BuildConfig
 import com.example.tmdb.data.AppDatabase
+import com.example.tmdb.data.AppHeadersInterceptor
 import com.example.tmdb.data.api.MoviesApi
 import com.example.tmdb.data.dao.MovieDao
 import com.example.tmdb.data.dao.MovieFavoriteDao
@@ -34,18 +35,15 @@ object DataModule {
     @Provides
     @Singleton
     fun provideDefaultOkHttpClient(
-        @ApplicationContext context: Context,
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        appHeadersInterceptor: AppHeadersInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
-            //.addInterceptor(headersInterceptor)
-
-
+            .addInterceptor(appHeadersInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-
             .build()
 
     @Provides
@@ -79,5 +77,9 @@ object DataModule {
     @Provides
     @Singleton
     fun provideMovieFavoriteDao(appDatabase: AppDatabase) : MovieFavoriteDao = appDatabase.movieFavoriteDao()
+
+    @Provides
+    @Singleton
+    fun provideAppHeadersInterceptor() : AppHeadersInterceptor = AppHeadersInterceptor()
 
 }

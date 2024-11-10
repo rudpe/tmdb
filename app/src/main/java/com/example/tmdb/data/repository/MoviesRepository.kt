@@ -9,7 +9,8 @@ import com.example.tmdb.data.dao.MovieFavoriteDao
 import com.example.tmdb.data.models.MovieEntity
 import com.example.tmdb.data.models.MovieFavoriteEntity
 import com.example.tmdb.data.models.MovieResponse
-import com.example.tmdb.data.models.Resource
+import com.example.core.Resource
+import com.example.tmdb.data.AppDatabase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -17,12 +18,13 @@ import javax.inject.Inject
 class MoviesRepository @Inject constructor(
     private val moviesApi: MoviesApi,
     private val movieDao: MovieDao,
+    appDatabase: AppDatabase,
     private val movieFavoriteDao: MovieFavoriteDao
 ) {
 
     val moviesPager = Pager(
         config = PagingConfig(pageSize = 20),
-        remoteMediator = MovieRemoteMediator(movieDao, this)
+        remoteMediator = MovieRemoteMediator(appDatabase, this)
     ) {
         movieDao.pagingSource()
     }
@@ -44,7 +46,7 @@ class MoviesRepository @Inject constructor(
         movieFavoriteDao.upsert(MovieFavoriteEntity(id, isFavorite))
     }
 
-    fun getFavoritesFlow() = movieFavoriteDao.getFavoritesFlow()
+    fun getFavorites(): Flow<List<MovieFavoriteEntity>> = movieFavoriteDao.getFavorites()
 
     fun geMovieById(id: Long): Flow<MovieEntity> = movieDao.geMovieById(id)
 

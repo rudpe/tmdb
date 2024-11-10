@@ -10,13 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 
-fun LazyListScope.stateLoader(state : CombinedLoadStates) {
-    when (val state = state.refresh) { //FIRST LOAD
+fun LazyListScope.stateLoader(loadState : CombinedLoadStates) {
+    when (val state = loadState.refresh) { //FIRST LOAD
         is LoadState.Error -> {
             item {
                 SimplePagerError(state.error.message ?: "Unknown error")
@@ -32,7 +31,7 @@ fun LazyListScope.stateLoader(state : CombinedLoadStates) {
         else -> {}
     }
 
-    when (val state = state.append) { // Pagination
+    when (val state = loadState.append) { // Pagination
         is LoadState.Error -> {
             item {
                 SimplePagerError(state.error.message ?: "Unknown error")

@@ -1,6 +1,5 @@
 package com.example.tmdb.ui.viewmodels
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -18,7 +17,7 @@ class MoviesViewModel @Inject constructor(
 
     val moviesPager = moviesService.moviesPager.cachedIn(viewModelScope)
 
-    val favorites = moviesService.getFavoritesFlow().stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+    val favorites = moviesService.getFavorites().stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     fun updateFavorite(id: Long, isFavorite: Boolean) {
         viewModelScope.launch {

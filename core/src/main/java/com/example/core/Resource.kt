@@ -1,4 +1,4 @@
-package com.example.tmdb.data.models
+package com.example.core
 
 sealed class Resource<T> {
     class Success<T>(val data: T) : Resource<T>()
