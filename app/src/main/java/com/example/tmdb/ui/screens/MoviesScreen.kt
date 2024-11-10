@@ -28,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,10 +41,10 @@ import com.example.core.utils.ImageUtil
 import com.example.tmdb.ui.components.MovieTopBar
 
 @Composable
-fun MoviesScreen(onMovieClick: (Long) -> Unit, viewModel: MoviesViewModel = hiltViewModel()) {
+fun MoviesScreen(onMovieClick: (Long) -> Unit, onInfoClick: () -> Unit, onSettingsClick: () -> Unit, viewModel: MoviesViewModel = hiltViewModel()) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { MovieTopBar("Movies", null) }
+        topBar = { MovieTopBar("Movies", null, onSettingsClick, onInfoClick) }
     ) { innerPadding ->
         val favorites by viewModel.favorites.collectAsStateWithLifecycle()
         val pager = viewModel.moviesPager.collectAsLazyPagingItems()
@@ -89,7 +88,7 @@ fun MovieItem(movie: MovieEntity, isFavorite: Boolean, onFavoriteClick: (Boolean
             Column(Modifier.weight(1f)) {
                 Text(modifier = Modifier.padding(start = 16.dp, end = 32.dp), text = movie.title, fontWeight = FontWeight.Bold)
                 IconButton(modifier = Modifier.size(20.dp).align(Alignment.End), onClick = { onFavoriteClick(isFavorite.not()) }) {
-                    Icon(if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = "Favorite", tint = Color.Black)
+                    Icon(if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = "Favorite")
                 }
             }
         }

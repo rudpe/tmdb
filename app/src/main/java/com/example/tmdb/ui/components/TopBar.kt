@@ -2,6 +2,8 @@ package com.example.tmdb.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -16,6 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 fun MovieTopBar(
     title: String = "",
     onBackButtonClick: (() -> Unit)?,
+    onSettingsClick: (() -> Unit)?,
+    onInfoClick: (() -> Unit)?
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -29,6 +33,18 @@ fun MovieTopBar(
             }
         } else {
             {}
+        },
+        actions = {
+            onSettingsClick?.let {
+                IconButton(onClick = { it() }) {
+                    Icon(Icons.Default.Settings, "")
+                }
+            }
+            onInfoClick?.let {
+                IconButton(onClick = { it() }) {
+                    Icon(Icons.Default.Info, "")
+                }
+            }
         }
     )
 }

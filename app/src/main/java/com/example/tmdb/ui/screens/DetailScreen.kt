@@ -33,7 +33,7 @@ import com.example.tmdb.ui.viewmodels.DetailViewModel
 fun DetailScreen(onBackButtonClick: () -> Unit, viewModel: DetailViewModel = hiltViewModel()) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { MovieTopBar("Detail", onBackButtonClick) }
+        topBar = { MovieTopBar("Detail", onBackButtonClick, null, null) }
     ) { innerPadding ->
         val movie by viewModel.movie.collectAsStateWithLifecycle()
         val isFavorite by viewModel.favorite.collectAsStateWithLifecycle()
