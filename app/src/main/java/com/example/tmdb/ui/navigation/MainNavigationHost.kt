@@ -1,10 +1,14 @@
 package com.example.tmdb.ui.navigation
 
+import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,6 +39,7 @@ sealed interface MainRoutes {
 
 @Composable
 fun MainNavHost(navController: NavHostController = rememberNavController()) {
+    val context = LocalContext.current
     val themeViewModel: ThemeViewModel = hiltViewModel()
     val theme by themeViewModel.theme.collectAsStateWithLifecycle()
     val darkTheme = when (theme) {
@@ -55,14 +60,20 @@ fun MainNavHost(navController: NavHostController = rememberNavController()) {
                 )
             }
             composable<MainRoutes.Detail> {
-                DetailScreen({ navController.popBackStack() })
+                DetailScreen({ navController.popBackStackOrFinish(context) })
             }
             composable<MainRoutes.Info> {
-                InfoScreen { navController.popBackStack() }
+                InfoScreen { navController.popBackStackOrFinish(context) }
             }
             composable<MainRoutes.Settings> {
-                SettingsScreen({ navController.popBackStack() }, { themeViewModel.updateTheme(it) })
+                SettingsScreen({ navController.popBackStackOrFinish(context) }, { themeViewModel.updateTheme(it) })
             }
         }
+    }
+}
+
+private fun NavController.popBackStackOrFinish(context: Context) {
+    if (!popBackStack()) {
+        (context as? Activity)?.finish()
     }
 }
